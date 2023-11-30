@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
-Widget buildArticleItem(var article) {
+Widget buildArticleItem(var article, context) {
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
@@ -12,7 +12,7 @@ Widget buildArticleItem(var article) {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             image: DecorationImage(
-              image: NetworkImage("${article['urlToImage']}")  ,
+              image: NetworkImage("${article['urlToImage']}"),
               fit: BoxFit.cover,
             ),
           ),
@@ -30,10 +30,7 @@ Widget buildArticleItem(var article) {
                     "${article['title']}",
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 Text(
@@ -59,12 +56,12 @@ Widget myDivider() => Container(
       color: Colors.black,
     );
 
-Widget articleBuilder(list) => ConditionalBuilder(
+Widget articleBuilder(list, context) => ConditionalBuilder(
       condition: list.isNotEmpty,
       builder: (context) => ListView.separated(
         physics: const BouncingScrollPhysics(),
         itemCount: list.length,
-        itemBuilder: (context, index) => buildArticleItem(list[index]),
+        itemBuilder: (context, index) => buildArticleItem(list[index], context),
         separatorBuilder: (BuildContext context, int index) => myDivider(),
       ),
       fallback: (context) => const Center(
