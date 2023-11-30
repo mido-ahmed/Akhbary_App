@@ -12,7 +12,7 @@ class SportScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var sportList = NewsAppCubit.get(context).sports;
-        return articleBuilder(sportList);
+        return articleBuilder(sportList , context);
       },
     );
   }
