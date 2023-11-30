@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:news_app/layout/news_layout.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 import 'package:news_app/shared/news_cubit/news_app_cubit.dart';
+import 'package:news_app/shared/styles/bloc_observer.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   DioHelper.init();
   runApp(const MyApp());
 }
@@ -15,40 +18,97 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'News App',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Colors.deepPurple,
-        ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          iconTheme: IconThemeData(color: Colors.deepPurple, size: 30.0),
-          titleTextStyle: TextStyle(
-            color: Colors.deepPurple,
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
-          ),
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.white,
-            statusBarIconBrightness: Brightness.dark,
-          ),
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          type: BottomNavigationBarType.fixed,
-          elevation: 20.0,
-          selectedIconTheme: IconThemeData(
-            size: 40.0,
-            color: Colors.deepPurple,
-          ),
-        ),
-        scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
+    return BlocProvider(
+      create: (BuildContext context) => NewsAppCubit(),
+      child: BlocConsumer<NewsAppCubit, NewsAppState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'News App',
+            theme: ThemeData(
+              primarySwatch: Colors.deepOrange,
+              scaffoldBackgroundColor: Colors.white,
+              appBarTheme: const AppBarTheme(
+                titleSpacing: 20.0,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.white,
+                  statusBarIconBrightness: Brightness.dark,
+                ),
+                backgroundColor: Colors.white,
+                elevation: 0.0,
+                titleTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                iconTheme: IconThemeData(
+                  color: Colors.black,
+                ),
+              ),
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                backgroundColor: Colors.deepOrange,
+              ),
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Colors.deepOrange,
+                unselectedItemColor: Colors.grey,
+                elevation: 20.0,
+                backgroundColor: Colors.white,
+              ),
+              textTheme: const TextTheme(
+                bodyText1: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            darkTheme: ThemeData(
+              primarySwatch: Colors.deepOrange,
+              scaffoldBackgroundColor: HexColor('333739'),
+              appBarTheme: AppBarTheme(
+                titleSpacing: 20.0,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: HexColor('333739'),
+                  statusBarIconBrightness: Brightness.light,
+                ),
+                backgroundColor: HexColor('333739'),
+                elevation: 0.0,
+                titleTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                ),
+              ),
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                backgroundColor: Colors.deepOrange,
+              ),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: Colors.deepOrange,
+                unselectedItemColor: Colors.grey,
+                elevation: 20.0,
+                backgroundColor: HexColor('333739'),
+              ),
+              textTheme: const TextTheme(
+                bodyText1: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            themeMode: NewsAppCubit.get(context).isDark
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            home: NewsLayout(),
+          );
+        },
       ),
-      home: const NewsLayout(),
     );
   }
 }

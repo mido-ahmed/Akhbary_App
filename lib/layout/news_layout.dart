@@ -20,7 +20,15 @@ class NewsLayout extends StatelessWidget {
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.search_rounded),
-                )
+                ),
+                IconButton(
+                  icon: cubit.isDark
+                      ? const Icon(Icons.brightness_4)
+                      : const Icon(Icons.brightness_4_outlined),
+                  onPressed: () {
+                    NewsAppCubit.get(context).changeAppMode();
+                  },
+                ),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

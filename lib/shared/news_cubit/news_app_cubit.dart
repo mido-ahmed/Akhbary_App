@@ -22,19 +22,16 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     "Business Screen",
     "Sport Screen",
     "Science Screen",
-    "Setting Screen"
   ];
   List<Widget> screens = const [
     BusinessScreen(),
     SportScreen(),
     ScienceScreen(),
-    SettingScreen()
   ];
   List<BottomNavigationBarItem> barItems = const [
     BottomNavigationBarItem(icon: Icon(Icons.business), label: "Business"),
     BottomNavigationBarItem(icon: Icon(Icons.sports), label: "Sport"),
     BottomNavigationBarItem(icon: Icon(Icons.science), label: "Science"),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
   ];
 
   List<dynamic> business = [];
@@ -123,5 +120,12 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     } else {
       emit(NewsAppGetScienceDataSuccessfully());
     }
+  }
+
+  bool isDark = false;
+
+  void changeAppMode() {
+    isDark = !isDark;
+    emit(NewsAppThemeModeChangedSuccessfully());
   }
 }

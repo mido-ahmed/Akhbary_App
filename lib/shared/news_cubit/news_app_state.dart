@@ -7,6 +7,8 @@ class NewsAppInitial extends NewsAppState {}
 
 class NewsAppBottomNav extends NewsAppState {}
 
+class NewsAppThemeModeChangedSuccessfully extends NewsAppState {}
+
 class NewsAppGetBusinessDataSuccessfully extends NewsAppState {}
 class NewsAppGetBusinessDataError extends NewsAppState {
   final String error;
