@@ -46,7 +46,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
   }
 
   void getBusiness() {
-    emit(NewsAppGetBusinessDataLoadingData());
+    emit(NewsAppGetBusinessDataLoading());
     DioHelper.getData(
       dataPath: "v2/top-headlines",
       query: {
@@ -69,7 +69,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
   }
 
   void getSport() {
-    emit(NewsAppGetSportDataLoadingData());
+    emit(NewsAppGetSportDataLoading());
     if (sports.isEmpty) {
       DioHelper.getData(
         dataPath: "v2/top-headlines",
@@ -96,7 +96,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
   }
 
   void getScience() {
-    emit(NewsAppGetScienceDataLoadingData());
+    emit(NewsAppGetScienceDataLoading());
     if (science.isEmpty) {
       DioHelper.getData(
         dataPath: "v2/top-headlines",

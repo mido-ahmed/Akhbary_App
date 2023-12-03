@@ -10,7 +10,7 @@ import 'package:news_app/shared/styles/bloc_observer.dart';
 void main() {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,13 +23,14 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<NewsAppCubit, NewsAppState>(
         listener: (context, state) {},
         builder: (context, state) {
+          var cubit = NewsAppCubit.get(context);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'News App',
             theme: ThemeData(
               primarySwatch: Colors.deepOrange,
               scaffoldBackgroundColor: Colors.white,
-              appBarTheme: const AppBarTheme(
+              appBarTheme:  AppBarTheme(
                 titleSpacing: 20.0,
                 systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor: Colors.white,
@@ -46,17 +47,17 @@ class MyApp extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              floatingActionButtonTheme:  FloatingActionButtonThemeData(
                 backgroundColor: Colors.deepOrange,
               ),
-              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              bottomNavigationBarTheme:  BottomNavigationBarThemeData(
                 type: BottomNavigationBarType.fixed,
                 selectedItemColor: Colors.deepOrange,
                 unselectedItemColor: Colors.grey,
                 elevation: 20.0,
                 backgroundColor: Colors.white,
               ),
-              textTheme: const TextTheme(
+              textTheme:  TextTheme(
                 bodyText1: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
@@ -75,16 +76,16 @@ class MyApp extends StatelessWidget {
                 ),
                 backgroundColor: HexColor('333739'),
                 elevation: 0.0,
-                titleTextStyle: const TextStyle(
+                titleTextStyle:  TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
-                iconTheme: const IconThemeData(
+                iconTheme:  IconThemeData(
                   color: Colors.white,
                 ),
               ),
-              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              floatingActionButtonTheme:  FloatingActionButtonThemeData(
                 backgroundColor: Colors.deepOrange,
               ),
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -94,7 +95,7 @@ class MyApp extends StatelessWidget {
                 elevation: 20.0,
                 backgroundColor: HexColor('333739'),
               ),
-              textTheme: const TextTheme(
+              textTheme:  TextTheme(
                 bodyText1: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
@@ -102,9 +103,7 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            themeMode: NewsAppCubit.get(context).isDark
-                ? ThemeMode.dark
-                : ThemeMode.light,
+            themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
             home: NewsLayout(),
           );
         },

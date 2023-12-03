@@ -15,18 +15,18 @@ class NewsAppGetBusinessDataError extends NewsAppState {
 
   NewsAppGetBusinessDataError(this.error);
 }
-class NewsAppGetBusinessDataLoadingData extends NewsAppState {}
+class NewsAppGetBusinessDataLoading extends NewsAppState {}
 
 class NewsAppGetSportDataError extends NewsAppState {
   final String error;
 
   NewsAppGetSportDataError(this.error);
 }
-class NewsAppGetSportDataLoadingData extends NewsAppState {}
+class NewsAppGetSportDataLoading extends NewsAppState {}
 class NewsAppGetSportDataSuccessfully extends NewsAppState {}
 
 class NewsAppGetScienceDataSuccessfully extends NewsAppState {}
-class NewsAppGetScienceDataLoadingData extends NewsAppState {}
+class NewsAppGetScienceDataLoading extends NewsAppState {}
 class NewsAppGetScienceDataError extends NewsAppState {
   final String error;
 
