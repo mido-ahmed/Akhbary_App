@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.deepOrange,
               scaffoldBackgroundColor: Colors.white,
-              appBarTheme:  AppBarTheme(
+              appBarTheme: AppBarTheme(
                 titleSpacing: 20.0,
                 systemOverlayStyle: SystemUiOverlayStyle(
                   statusBarColor: Colors.white,
@@ -47,17 +47,17 @@ class MyApp extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              floatingActionButtonTheme:  FloatingActionButtonThemeData(
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: Colors.deepOrange,
               ),
-              bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 type: BottomNavigationBarType.fixed,
                 selectedItemColor: Colors.deepOrange,
                 unselectedItemColor: Colors.grey,
                 elevation: 20.0,
                 backgroundColor: Colors.white,
               ),
-              textTheme:  TextTheme(
+              textTheme: TextTheme(
                 bodyText1: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
@@ -76,16 +76,16 @@ class MyApp extends StatelessWidget {
                 ),
                 backgroundColor: HexColor('333739'),
                 elevation: 0.0,
-                titleTextStyle:  TextStyle(
+                titleTextStyle: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
-                iconTheme:  IconThemeData(
+                iconTheme: IconThemeData(
                   color: Colors.white,
                 ),
               ),
-              floatingActionButtonTheme:  FloatingActionButtonThemeData(
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: Colors.deepOrange,
               ),
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
                 elevation: 20.0,
                 backgroundColor: HexColor('333739'),
               ),
-              textTheme:  TextTheme(
+              textTheme: TextTheme(
                 bodyText1: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,

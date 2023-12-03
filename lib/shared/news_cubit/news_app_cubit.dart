@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:news_app/modules/business_module/business_screen.dart';
 import 'package:news_app/modules/science_module/science_screen.dart';
-import 'package:news_app/modules/settings_module/setting_screen.dart';
 import 'package:news_app/modules/sport_module/sport_screen.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
@@ -57,7 +56,6 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     ).then(
       (value) {
         business = value!.data['articles'];
-        log("business output : ${business[0]['title']}");
         emit(NewsAppGetBusinessDataSuccessfully());
       },
     ).catchError(
@@ -81,7 +79,6 @@ class NewsAppCubit extends Cubit<NewsAppState> {
       ).then(
         (value) {
           sports = value!.data['articles'];
-          log("sport output : ${sports[0]['title']}");
           emit(NewsAppGetSportDataSuccessfully());
         },
       ).catchError(
@@ -108,7 +105,6 @@ class NewsAppCubit extends Cubit<NewsAppState> {
       ).then(
         (value) {
           science = value!.data['articles'];
-          log("science output : ${science[0]['title']}");
           emit(NewsAppGetScienceDataSuccessfully());
         },
       ).catchError(
