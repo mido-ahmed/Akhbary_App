@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:news_app/modules/business_module/business_screen.dart';
 import 'package:news_app/modules/science_module/science_screen.dart';
 import 'package:news_app/modules/sport_module/sport_screen.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 part 'news_app_state.dart';
@@ -39,8 +40,8 @@ class NewsAppCubit extends Cubit<NewsAppState> {
 
   void changeIndex(int index) {
     currentIndex = index;
-    if (index == 1) getSport();
-    if (index == 2) getScience();
+    if (index == 1 && sports.isEmpty) getSport();
+    if (index == 2 && science.isEmpty) getScience();
     emit(NewsAppBottomNav());
   }
 
@@ -118,10 +119,11 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     }
   }
 
-  bool isDark = false;
+  static bool isDark = false;
 
   void changeAppMode() {
     isDark = !isDark;
-    emit(NewsAppThemeModeChangedSuccessfully());
+    CacheHelper.setCache(key: 'isDark', value: isDark)
+        .then((value) => emit(NewsAppThemeModeChangedSuccessfully()));
   }
 }
