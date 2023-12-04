@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/shared/news_cubit/news_app_cubit.dart';
 
 Widget buildArticleItem(var article, context) {
   return Padding(
@@ -12,7 +13,8 @@ Widget buildArticleItem(var article, context) {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             image: DecorationImage(
-              image: NetworkImage("${article['urlToImage']}"),
+              image: NetworkImage(
+                  "${article['urlToImage'] ?? 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg'}"),
               fit: BoxFit.cover,
             ),
           ),
@@ -28,18 +30,34 @@ Widget buildArticleItem(var article, context) {
                 Expanded(
                   child: Text(
                     "${article['title']}",
-                    maxLines: 3,
+                    maxLines: 4,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: NewsAppCubit.isDark
+                        ? const TextStyle(
+                            color: Colors.white,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.w700,
+                          )
+                        : const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.w700,
+                          ),
                   ),
                 ),
                 Text(
                   "${article['publishedAt']}",
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: NewsAppCubit.isDark
+                      ? const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w700,
+                        )
+                      : const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                 ),
               ],
             ),
@@ -53,7 +71,7 @@ Widget buildArticleItem(var article, context) {
 Widget myDivider() => Container(
       width: double.infinity,
       height: 1,
-      color: Colors.black,
+      color: NewsAppCubit.isDark ? Colors.grey : Colors.black,
     );
 
 Widget articleBuilder(list, context) => ConditionalBuilder(
