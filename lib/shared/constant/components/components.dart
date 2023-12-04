@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/modules/search_module/search_screen.dart';
 import 'package:news_app/shared/news_cubit/news_app_cubit.dart';
 
 Widget buildArticleItem(var article, context) {
@@ -86,3 +87,82 @@ Widget articleBuilder(list, context) => ConditionalBuilder(
         child: CircularProgressIndicator(),
       ),
     );
+
+Widget defaultTextField({
+  required TextEditingController controller,
+  bool enable = true,
+  required TextInputType type,
+  Function? onSubmit,
+  Function(String? s)? onChange,
+  IconData? prIcon,
+  IconData? sfIcon,
+  Function? onTap,
+  bool isPassword = false,
+  VoidCallback? suffixPressed,
+  required String? Function(String? value)? validate,
+  String? label,
+  FocusNode? focusNode,
+}) =>
+    TextFormField(
+      cursorColor: NewsAppCubit.isDark ? Colors.white : Colors.black,
+      controller: controller,
+      focusNode: focusNode,
+      enabled: enable,
+      onTap: () {
+        onTap != null ? onTap() : null;
+      },
+      keyboardType: type,
+      onFieldSubmitted: (value) {
+        onSubmit!(value);
+      },
+      onChanged: (value) {
+        if (onChange != null) {
+          onChange(value);
+        }
+      },
+      style: TextStyle(
+        color: NewsAppCubit.isDark ? Colors.white : Colors.black,
+      ),
+      obscureText: isPassword,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(
+          color: NewsAppCubit.isDark ? Colors.white : Colors.black,
+        ),
+        iconColor: NewsAppCubit.isDark ? Colors.white : Colors.black,
+        prefixIconColor: NewsAppCubit.isDark ? Colors.white : Colors.black,
+        suffixIconColor: NewsAppCubit.isDark ? Colors.white : Colors.black,
+        prefixIcon: Icon(prIcon),
+        suffixIcon: sfIcon != null
+            ? IconButton(onPressed: suffixPressed, icon: Icon(sfIcon))
+            : null,
+        border: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            style: BorderStyle.solid,
+            color: NewsAppCubit.isDark ? Colors.white : Colors.black,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            width: 1.0,
+            style: BorderStyle.solid,
+            color: NewsAppCubit.isDark ? Colors.white : Colors.black,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderSide: BorderSide(
+            style: BorderStyle.solid,
+            color: NewsAppCubit.isDark ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
+      validator: validate,
+    );
+
+void navigateToPage(context, widget) =>
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => widget,
+    ));
