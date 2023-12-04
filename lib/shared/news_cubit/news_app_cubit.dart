@@ -17,6 +17,8 @@ class NewsAppCubit extends Cubit<NewsAppState> {
 
   static NewsAppCubit get(context) => BlocProvider.of(context);
 
+  final String apiKey = '6f05cd4f7ac740c5975a4881fe4453a7';
+
   int currentIndex = 0;
   List<String> appBarNames = [
     "Business Screen",
@@ -37,6 +39,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
   List<dynamic> business = [];
   List<dynamic> sports = [];
   List<dynamic> science = [];
+  List<dynamic> search = [];
 
   void changeIndex(int index) {
     currentIndex = index;
@@ -49,11 +52,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     emit(NewsAppGetBusinessDataLoading());
     DioHelper.getData(
       dataPath: "v2/top-headlines",
-      query: {
-        "country": "us",
-        "category": "business",
-        "apiKey": "6f05cd4f7ac740c5975a4881fe4453a7"
-      },
+      query: {"country": "us", "category": "business", "apiKey": apiKey},
     ).then(
       (value) {
         business = value!.data['articles'];
@@ -72,11 +71,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     if (sports.isEmpty) {
       DioHelper.getData(
         dataPath: "v2/top-headlines",
-        query: {
-          "country": "us",
-          "category": "sport",
-          "apiKey": "6f05cd4f7ac740c5975a4881fe4453a7"
-        },
+        query: {"country": "us", "category": "sport", "apiKey": apiKey},
       ).then(
         (value) {
           sports = value!.data['articles'];
@@ -98,11 +93,7 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     if (science.isEmpty) {
       DioHelper.getData(
         dataPath: "v2/top-headlines",
-        query: {
-          "country": "us",
-          "category": "science",
-          "apiKey": "6f05cd4f7ac740c5975a4881fe4453a7"
-        },
+        query: {"country": "us", "category": "science", "apiKey": apiKey},
       ).then(
         (value) {
           science = value!.data['articles'];
@@ -117,6 +108,24 @@ class NewsAppCubit extends Cubit<NewsAppState> {
     } else {
       emit(NewsAppGetScienceDataSuccessfully());
     }
+  }
+
+  void getSearch(String value) {
+    emit(NewsAppGetSearchDataLoading());
+    DioHelper.getData(
+      dataPath: "v2/everything",
+      query: {"q": value, "apiKey": apiKey},
+    ).then(
+      (value) {
+        search = value!.data['articles'];
+        emit(NewsAppGetSearchDataSuccessfully());
+      },
+    ).catchError(
+      (error) {
+        log(error.toString());
+        emit(NewsAppGetSearchDataError(error.toString()));
+      },
+    );
   }
 
   static bool isDark = false;

@@ -32,3 +32,11 @@ class NewsAppGetScienceDataError extends NewsAppState {
 
   NewsAppGetScienceDataError(this.error);
 }
+
+class NewsAppGetSearchDataSuccessfully extends NewsAppState {}
+class NewsAppGetSearchDataLoading extends NewsAppState {}
+class NewsAppGetSearchDataError extends NewsAppState {
+  final String error;
+
+  NewsAppGetSearchDataError(this.error);
+}
